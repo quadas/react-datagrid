@@ -3,9 +3,9 @@
 //ensure DOM environment
 require('../testdom')()
 
-var React     = require('react/addons')
-var TestUtils = React.addons.TestUtils
-var DataGrid  = require('../DataGrid')
+var React       = require('react')
+var findDOMNode = require('react-dom').findDOMNode
+var DataGrid    = require('../DataGrid')
 
 var TABLE_CLASS         = 'z-table'
 var ROW_CLASS           = 'z-row'
@@ -141,12 +141,12 @@ describe('DataGrid Test Suite - Columns', function(){
         // check header width of first row first element
         var header = columnHeaderArray[0]
 
-        ;(header.getDOMNode().style._values.width).should.equal('50px') // hack, should be replaced with a better api
+        ;(findDOMNode(header).style._values.width).should.equal('50px') // hack, should be replaced with a better api
 
         // check cell width of first row first element
         var rowNode = tryWithClass(table,ROW_CLASS)
         var rowCells = tryWithClass(rowNode[0],CELL_CLASS)
-        ;(rowCells[0].getDOMNode().style._values.width).should.equal('50px')
+        ;(findDOMNode(rowCells[0]).style._values.width).should.equal('50px')
         done()
     })
 
@@ -174,7 +174,7 @@ describe('DataGrid Test Suite - Columns', function(){
 
         tryWithClass(table,COLUMN_HEADER_CLASS)
             .map(function(header) {
-                headers.push(header.getDOMNode().textContent)
+                headers.push(findDOMNode(header).textContent)
             })
 
         var expectedHeaders    = ['#','First name','Last name','City','Email']
@@ -190,7 +190,7 @@ describe('DataGrid Test Suite - Columns', function(){
         var newHeaders = []
         tryWithClass(table,COLUMN_HEADER_CLASS)
             .map(function(header) {
-                newHeaders.push(header.getDOMNode().textContent)
+                newHeaders.push(findDOMNode(header).textContent)
             })
 
         newHeaders.should.eql(expectedHeadersLater)
@@ -222,7 +222,7 @@ describe('DataGrid Test Suite - Columns', function(){
         var rows = tryWithClass(table,ROW_CLASS)
         rows.map(function(row,index) {
             var cells = tryWithClass(row,CELL_CLASS)
-            React.findDOMNode(cells[0]).textContent.should.equal('Index ' + (index + 1))
+            findDOMNode(cells[0]).textContent.should.equal('Index ' + (index + 1))
         })
 
     })
@@ -243,7 +243,7 @@ function checkColVisibility(data, columns, expectedHeaders, visible) {
 
     tryWithClass(table,COLUMN_HEADER_CLASS)
         .map(function(header) {
-            headers.push(header.getDOMNode().textContent)
+            headers.push(findDOMNode(header).textContent)
         })
 
     headers.should.eql(expectedHeaders)
@@ -253,7 +253,7 @@ function checkColVisibility(data, columns, expectedHeaders, visible) {
     var cellTexts = tryWithClass(tableDom,CELLTEXT_CLASS)
     var cellContents = []
     cellTexts.map(function(cell) {
-        cellContents.push(cell.getDOMNode().textContent)
+        cellContents.push(findDOMNode(cell).textContent)
     });
 
     if(visible) {

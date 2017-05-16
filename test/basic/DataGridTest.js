@@ -1,8 +1,8 @@
 'use strict';
 
 var DataGrid  = require('../DataGrid')
-var React     = require('react/addons')
-var TestUtils = React.addons.TestUtils
+var React     = require('react')
+var findDOMNode = require('react-dom').findDOMNode
 
 var TABLE_CLASS         = 'z-table'
 var ROW_CLASS           = 'z-row'
@@ -20,7 +20,7 @@ var generateMockData = testUtils.generateMockData
 
 describe('DataGrid Test Suite - Basic', function(){
 
-	xit('renders basic grid', function(){
+    xit('renders basic grid', function(){
 
         var data = generateMockData({type : 'local', len : 1})
 
@@ -32,12 +32,12 @@ describe('DataGrid Test Suite - Basic', function(){
             { name: 'email' }
         ]
 
-		var table = render(
-			DataGrid({
-				idProperty:'id',
+        var table = render(
+            DataGrid({
+                idProperty:'id',
                 dataSource:data,
                 columns:columns
-			})
+            })
 		)
 
         // check whether one row is populated
@@ -46,13 +46,11 @@ describe('DataGrid Test Suite - Basic', function(){
             .should
             .equal(1)
 
-        // console.log(rows[0].getDOMNode().innerHTML);
-
         // check the contents of the row
         var tableDom = findWithClass(table, TABLE_CLASS)
         var cellTexts = tryWithClass(rows[0], CELLTEXT_CLASS)
 
-        cellTexts[0].getDOMNode()
+        findDOMNode(cellTexts[0])
             .textContent
             .should.equal('1')
 
@@ -84,7 +82,7 @@ describe('DataGrid Test Suite - Basic', function(){
 
         tryWithClass(table, COLUMN_HEADER_CLASS)
             .map(function(header) {
-                headers.push(header.getDOMNode().textContent)
+                headers.push(findDOMNode(header).textContent)
             })
 
         headers.should.eql(expectedHeaders)

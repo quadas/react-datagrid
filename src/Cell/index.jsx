@@ -1,31 +1,21 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React  = require('react')
 var assign = require('object-assign')
 var normalize = require('react-style-normalizer')
+import {pickHTMLProps} from 'pick-react-known-prop'
 
 var TEXT_ALIGN_2_JUSTIFY = {
     right : 'flex-end',
     center: 'center'
 }
 
-function copyProps(target, source, list){
+class Cell extends React.Component {
+    static displayName = 'ReactDataGrid.Cell';
 
-    list.forEach(function(name){
-        if (name in source){
-            target[name] = source[name]
-        }
-    })
-
-}
-
-var PropTypes = React.PropTypes
-
-var Cell = React.createClass({
-
-    displayName: 'ReactDataGrid.Cell',
-
-    propTypes: {
+    static propTypes = {
         className     : PropTypes.string,
         firstClassName: PropTypes.string,
         lastClassName : PropTypes.string,
@@ -42,20 +32,18 @@ var Cell = React.createClass({
         style      : PropTypes.object,
         text       : PropTypes.any,
         rowIndex   : PropTypes.number
-    },
+    };
 
-    getDefaultProps: function(){
-        return {
-            text: '',
+    static defaultProps = {
+        text: '',
 
-            firstClassName: 'z-first',
-            lastClassName : 'z-last',
+        firstClassName: 'z-first',
+        lastClassName : 'z-last',
 
-            defaultStyle: {}
-        }
-    },
+        defaultStyle: {}
+    };
 
-    prepareClassName: function(props) {
+    prepareClassName = (props) => {
         var index     = props.index
         var columns   = props.columns
         var column    = props.column
@@ -81,9 +69,9 @@ var Cell = React.createClass({
         }
 
         return className
-    },
+    };
 
-    prepareStyle: function(props) {
+    prepareStyle = (props) => {
         var column    = props.column
         var sizeStyle = column && column.sizeStyle
 
@@ -97,9 +85,9 @@ var Cell = React.createClass({
         var style = assign({}, props.defaultStyle, sizeStyle, alignStyle, props.style)
 
         return normalize(style)
-    },
+    };
 
-    prepareProps: function(thisProps){
+    prepareProps = (thisProps) => {
 
         var props = assign({}, thisProps)
 
@@ -111,13 +99,12 @@ var Cell = React.createClass({
         props.style     = this.prepareStyle(props)
 
         return props
-    },
+    };
 
-    render: function(){
+    render() {
         var props = this.p = this.prepareProps(this.props)
 
         var column    = props.column
-        var textAlign = column && column.textAlign
         var text      = props.renderText?
             props.renderText(props.text, column, props.rowIndex):
             props.text
@@ -133,9 +120,7 @@ var Cell = React.createClass({
                             props.renderCell(contentProps, text, props):
                             React.DOM.div(contentProps, text)
 
-        var renderProps = assign({}, props)
-
-        delete renderProps.data
+        var renderProps = pickHTMLProps(props);
 
         return (
             <div {...renderProps}>
@@ -144,7 +129,7 @@ var Cell = React.createClass({
             </div>
         )
     }
-})
+}
 
 Cell.className = 'z-cell'
 

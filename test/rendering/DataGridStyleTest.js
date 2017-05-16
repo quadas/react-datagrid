@@ -1,8 +1,8 @@
 'use strict';
 
 var DataGrid  = require('../DataGrid')
-var React     = require('react/addons')
-var TestUtils = React.addons.TestUtils
+var React     = require('react')
+var findDOMNode = require('react-dom').findDOMNode
 
 var TABLE_CLASS         = 'z-table'
 var ROW_CLASS           = 'z-row'
@@ -50,8 +50,8 @@ describe('DataGrid Test Suite -  Row Style',function() {
 
         var rows = tryWithClass(grid, ROW_CLASS)
 
-        var firstRow = React.findDOMNode(rows[0])
-        var secondRow = React.findDOMNode(rows[1])
+        var firstRow = findDOMNode(rows[0])
+        var secondRow = findDOMNode(rows[1])
 
         firstRow.className.indexOf('is-even')
             .should
@@ -86,7 +86,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
 
         var rows = tryWithClass(table,ROW_CLASS)
 		rows.forEach(function(row) {
-			window.getComputedStyle(row.getDOMNode()).getPropertyValue('color').should.equal(ROW_COLOR)
+			window.getComputedStyle(findDOMNode(row)).getPropertyValue('color').should.equal(ROW_COLOR)
         })
 
 	})
@@ -119,7 +119,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
         var rows = tryWithClass(table,ROW_CLASS)
 		rows.forEach(function(row,index) {
 			if(index % ROW_COLOR_INDEX == 0)
-				window.getComputedStyle(row.getDOMNode()).getPropertyValue('color').should.equal(ROW_COLOR)
+				window.getComputedStyle(findDOMNode(row)).getPropertyValue('color').should.equal(ROW_COLOR)
         })
 
 	})
@@ -153,7 +153,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
 			var cells = tryWithClass(row,CELL_CLASS)
 			cells.forEach(function(cell,index) {
 				if(index == COL_COLOR_INDEX)
-					window.getComputedStyle(cell.getDOMNode()).getPropertyValue('color').should.equal(COL_COLOR)
+					window.getComputedStyle(findDOMNode(cell)).getPropertyValue('color').should.equal(COL_COLOR)
 			})
         })
 
@@ -221,7 +221,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
 		rows.forEach(function(row, i) {
 
 			var cells     = tryWithClass(row, CELL_CLASS)
-			var className = React.findDOMNode(cells[1]).className
+			var className = findDOMNode(cells[1]).className
 
 			className.indexOf('custom-class')
 				.should
@@ -251,7 +251,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
             })
         );
 
-        var tableNode = React.findDOMNode(table)
+        var tableNode = findDOMNode(table)
         tableNode.className.includes(HORIZONTAL_BORDER).should.be.true
         tableNode.className.includes(VERTICAL_BORDER).should.be.true
 
@@ -267,7 +267,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
             })
         );
 
-        tableNode = React.findDOMNode(table)
+        tableNode = findDOMNode(table)
         tableNode.className.includes(HORIZONTAL_BORDER).should.be.true
 
         // check showCellBorders = 'vertical' works
@@ -282,7 +282,7 @@ describe('DataGrid Test Suite -  Row Style',function() {
             })
         );
 
-        tableNode = React.findDOMNode(table)
+        tableNode = findDOMNode(table)
         tableNode.className.includes(VERTICAL_BORDER).should.be.true
 
 	})

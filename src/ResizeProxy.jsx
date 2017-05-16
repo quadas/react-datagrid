@@ -1,23 +1,22 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React  = require('react')
 var assign = require('object-assign')
 
-module.exports = React.createClass({
+module.exports = class ResizeProxy extends React.Component {
+    static displayName = 'ReactDataGrid.ResizeProxy';
 
-    displayName: 'ReactDataGrid.ResizeProxy',
+    static propTypes = {
+        active: PropTypes.bool
+    };
 
-    propTypes: {
-        active: React.PropTypes.bool
-    },
+    state = {
+        offset: 0
+    };
 
-    getInitialState: function(){
-        return {
-            offset: 0
-        }
-    },
-
-    render: function(){
+    render() {
 
         var props = assign({}, this.props)
         var state = this.state
@@ -32,4 +31,4 @@ module.exports = React.createClass({
 
         return <div className='z-resize-proxy' style={style} />
     }
-})
+}

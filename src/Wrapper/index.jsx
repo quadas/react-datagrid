@@ -1,35 +1,34 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React    = require('react')
 var assign   = require('object-assign')
 var Scroller = require('react-virtual-scroller')
 
 function emptyFn(){}
 
-module.exports = React.createClass({
+module.exports = class extends React.Component {
+    static displayName = 'ReactDataGrid.Wrapper';
 
-    displayName: 'ReactDataGrid.Wrapper',
+    static propTypes = {
+        scrollLeft   : PropTypes.number,
+        scrollTop    : PropTypes.number,
+        scrollbarSize: PropTypes.number,
+        rowHeight   : PropTypes.any,
+        renderCount : PropTypes.number
+    };
 
-    propTypes: {
-        scrollLeft   : React.PropTypes.number,
-        scrollTop    : React.PropTypes.number,
-        scrollbarSize: React.PropTypes.number,
-        rowHeight   : React.PropTypes.any,
-        renderCount : React.PropTypes.number
-    },
+    static defaultProps = {
+        scrollLeft: 0,
+        scrollTop : 0
+    };
 
-    getDefaultProps: function(){
-        return {
-            scrollLeft: 0,
-            scrollTop : 0
-        }
-    },
-
-    onMount: function(scroller){
+    onMount = (scroller) => {
         ;(this.props.onMount || emptyFn)(this, scroller)
-    },
+    };
 
-    render: function() {
+    render() {
 
         var props     = this.prepareProps(this.props)
         var rowsCount = props.renderCount
@@ -70,27 +69,27 @@ module.exports = React.createClass({
             >
             {content}
         </Scroller>
-    },
+    }
 
-    onVerticalScrollOverflow: function() {
-    },
+    onVerticalScrollOverflow = () => {
+    };
 
-    onHorizontalScrollOverflow: function() {
-    },
+    onHorizontalScrollOverflow = () => {
+    };
 
-    onHorizontalScroll: function(scrollLeft) {
+    onHorizontalScroll = (scrollLeft) => {
         this.props.onScrollLeft(scrollLeft)
-    },
+    };
 
-    onVerticalScroll: function(pos){
+    onVerticalScroll = (pos) => {
         this.props.onScrollTop(pos)
-    },
+    };
 
-    prepareProps: function(thisProps){
+    prepareProps = (thisProps) => {
         var props = {}
 
         assign(props, thisProps)
 
         return props
-    }
-})
+    };
+}

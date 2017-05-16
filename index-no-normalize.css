@@ -164,7 +164,6 @@
   box-pack: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
-              -ms-grid-row-align: center;
           align-items: center;
 }
 .u-inflexible,
@@ -514,7 +513,6 @@ html.u-app body * {
   box-orient: vertical;
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
-              -ms-grid-row-align: stretch;
           align-items: stretch;
 }
 .react-datagrid .z-row,
@@ -633,7 +631,6 @@ html.u-app body * {
   -ms-flex-pack: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
-              -ms-grid-row-align: center;
           align-items: center;
 }
 .react-datagrid.z-empty .z-empty-text {
@@ -670,7 +667,6 @@ html.u-app body * {
 .react-datagrid .z-header {
   -webkit-box-align: stretch /* for vertical aligning text in header */;
       -ms-flex-align: stretch /* for vertical aligning text in header */;
-              -ms-grid-row-align: stretch /* for vertical aligning text in header */;
           align-items: stretch /* for vertical aligning text in header */;
 }
 .react-datagrid.z-with-column-menu .z-column-header .z-show-filter,
@@ -710,12 +706,10 @@ html.u-app body * {
   -ms-box-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  background: -webkit-linear-gradient(top, #f7f7f7 0%, #efefef 13%, #e6e6e6 100%);
   background: linear-gradient(to bottom, #f7f7f7 0%, #efefef 13%, #e6e6e6 100%);
   border-bottom: 1px solid #a8a8a8;
 }
 .react-datagrid .z-header-wrapper.z-dragging .z-column-header:not(.z-drag) {
-  -webkit-transition: left 0.4s;
   transition: left 0.4s;
 }
 .react-datagrid .z-column-header {
@@ -752,7 +746,6 @@ html.u-app body * {
   cursor: pointer;
 }
 .react-datagrid .z-column-header.z-over {
-  background: -webkit-linear-gradient(top, #fbfbfb 0%, #f8f8f8 13%, #f4f4f4 100%);
   background: linear-gradient(to bottom, #fbfbfb 0%, #f8f8f8 13%, #f4f4f4 100%);
 }
 .react-datagrid .z-column-header .z-icon-sort-info {
@@ -771,7 +764,6 @@ html.u-app body * {
 }
 .react-datagrid .z-column-header.z-drag {
   z-index: 1;
-  background: -webkit-linear-gradient(top, #fbfbfb 0%, #f8f8f8 13%, #f4f4f4 100%);
   background: linear-gradient(to bottom, #fbfbfb 0%, #f8f8f8 13%, #f4f4f4 100%);
   border-right: 1px solid #a8a8a8;
   border-left: 1px solid #a8a8a8;
@@ -853,14 +845,12 @@ html.u-app body * {
   border-left: 1px dotted #a8a8a8;
 }
 .react-datagrid .z-footer-wrapper {
-  background: -webkit-linear-gradient(top, #f7f7f7 0%, #efefef 13%, #e6e6e6 100%);
   background: linear-gradient(to bottom, #f7f7f7 0%, #efefef 13%, #e6e6e6 100%);
 }
 .react-datagrid .z-summary {
   border-top: 1px solid #a8a8a8;
   -webkit-box-align: stretch /* for vertical aligning text in header */;
       -ms-flex-align: stretch /* for vertical aligning text in header */;
-              -ms-grid-row-align: stretch /* for vertical aligning text in header */;
           align-items: stretch /* for vertical aligning text in header */;
 }
 .react-datagrid .z-summary .z-cell {

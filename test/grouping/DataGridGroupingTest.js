@@ -1,8 +1,8 @@
 'use strict';
 
 var DataGrid  = require('../DataGrid')
-var React     = require('react/addons')
-var TestUtils = React.addons.TestUtils
+var React     = require('react')
+var findDOMNode = require('react-dom').findDOMNode
 
 var TABLE_CLASS         = 'z-table'
 var ROW_CLASS           = 'z-row'
@@ -58,17 +58,17 @@ describe('DataGrid Test Suite -  Grouping',function() {
 
         var groupHeaders = tryWithClass(table,GROUP_ROW_CLASS)
         groupHeaders.length.should.equal(2)
-        React.findDOMNode(groupHeaders[0]).textContent.should.equal('India')
-        React.findDOMNode(groupHeaders[1]).textContent.should.equal('USA') 
+        findDOMNode(groupHeaders[0]).textContent.should.equal('India')
+        findDOMNode(groupHeaders[1]).textContent.should.equal('USA') 
 
         var groupedRows = tryWithClass(table,GROUPED_ROW_CLASS)
         groupedRows.length.should.equal(10)
         groupedRows.map(function(row,index) {
         	var cells = tryWithClass(row,CELL_CLASS)
         	if(index < 5) {
-        		React.findDOMNode(cells[5]).textContent.should.equal('India')
+        		findDOMNode(cells[5]).textContent.should.equal('India')
         	} else {
-        		React.findDOMNode(cells[5]).textContent.should.equal('USA')
+        		findDOMNode(cells[5]).textContent.should.equal('USA')
         	}
         })
 
